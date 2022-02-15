@@ -4,6 +4,32 @@ import http from 'axios';
 
 function App() {
   let [museum, setMuseum] = useState([]);
+  const [nameValue, setNameValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+
+
+  const signUp = async () => {
+    try {
+      await http.post('http://localhost:4000/api/signup', {
+        name: nameValue,
+        password: passwordValue
+      })
+      alert("Succesful signup")
+      setNameValue('')
+      setPasswordValue('')
+    } catch (err) {
+      console.log(err.response)
+      if (!err.response) {
+        alert("Oops... Something went wrong")
+      }
+      if (err.response.status === 409) {
+        alert('Username already exists')
+      }
+      if (err.response.status === 400) {
+        alert('Missing credentials')
+      }
+    }
+  }
 
   const loadMuseum = async () => {
     let response = []
@@ -27,6 +53,10 @@ function App() {
   return (
     <div className="App">
       <h1>Welcome to Art museum!</h1>
+      <input type='text' placeholder='username' value={nameValue} onChange={(e) => setNameValue(e.target.value)} />
+      <input type='password' placeholder='password' value={passwordValue} onChange={(e) => setPasswordValue(e.target.value)} />
+      <button onClick={signUp}>Sign up</button>
+      <br />
       <button onClick={() => loadMuseum()}>KATTINTS</button>
       {museum.length > 0 ? museum.map((muse, key) => (
         <div key="Kitalálod? A harmadik anyád">
