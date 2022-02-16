@@ -5,28 +5,22 @@ import SignUp from "./components/SignUp";
 
 function App() {
   const [museum, setMuseum] = useState([]);
+  const [imagesOnLoad, setImagesOnLoad] = useState([]);
 
+  /*
   const loadMuseum = async () => {
     // const responseFetch = await http.get("https://collectionapi.metmuseum.org/public/collection/v1/objects");
     // console.log("http response: ", responseFetch);
 
     let images = [];
-
     for (let id = 1; id <= 50; id++) {
       const responseFetch = await http.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`)
       images.push(responseFetch.data.primaryImage);
     };
 
+    // az elso 50 id alapjan 50 db get request, de csak console.log-al mukodik egyenlore
     console.log(images);
-    // teaFilter(response);
-
-    // sanya: sztem tok folosleges az egesz "/objects" lekerest megcsinalni. mert mindossze egy hasznos info
-    // van benne nekunk, az "objectIDs", ami egy sima array szamokkal 1-tol 477.967-ig, tehat semmi egyedi
-    // nincs benne
-    // helyette mondjuk csinalhatunk 2 opciot a landing page-en par kep megjelenitesere:
-    // vagy egy search, pl.: https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=sunflowers
-    // itt a "hasImage=true" eleve csak azokat keri le amiknel van img
-    // vagy (pl.) 20 kulon http.get (mondjuk for ciklusban) az objects-en belul, "/objects/${id}"
+    // teaFilter(images);
   };
 
   const teaFilter = async (resp) => {
@@ -34,16 +28,43 @@ function App() {
     setMuseum(resp);
     // console.log(museum);
   };
+  */
+
+  // Cleveland API
+  const loadCleveland = async() => {
+    let images = [];
+
+    const params = {
+      q: "sunflower", // keyword from input
+      limit: 20, // number of results
+      has_image: 1 // it has an image
+    };
+
+    const getImages = await http("https://openaccess-api.clevelandart.org/api/artworks", {params})
+      .then((response) => {
+        for (const artwork of response.data.data) {
+          const image = artwork.images.web.url;
+          // const barmely masik data a keprol, pl.: ID
+          images.push(image);
+        };
+        setImagesOnLoad(images);
+      })
+      .catch((e) => {
+        console.log("ERROR getting artwork data");
+        console.log(e);
+      });
+  };
 
   useEffect(() => {
-    loadMuseum();
+    // loadMuseum();
+    loadCleveland();
   }, []);
 
   return (
     <div className="App">
       <h1>Welcome to Art museum!</h1>
       <SignUp/>
-      <button onClick={() => loadMuseum()}>KATTINTS</button>
+      <button onClick={() => loadCleveland()}>KATTINTS</button>
       {museum.length > 0 ? (
         museum.map((artwork, key) => (
           <div key="Kitalálod? A harmadik anyád">
@@ -55,6 +76,9 @@ function App() {
       ) : (
         <p>Loading...</p>
       )}
+      {imagesOnLoad.map((img) => (
+        <img src={img} alt="Anyád" />
+      ))}
     </div>
   );
 }
