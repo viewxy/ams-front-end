@@ -18,6 +18,10 @@
   color: white;
 }
 
+img {
+  cursor: pointer;
+}
+
 button {
   border-radius: 5px;
   filter: invert(1);
@@ -25,4 +29,33 @@ button {
 
 button:hover {
   cursor: pointer;
+}
+
+img {
+  width: 300px;
+}
+
+.detailedArt {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  
+  width: 600px;
+  height: 930px;
+  border-radius: 10px;
+  background-color: rgba(95, 158, 160, 0.5); */
+}
+
+.miniArt {
+  display: none;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 200px;
+  height: 330px;
+  border-radius: 10px;
+  background-color: rgba(95, 158, 160, 0.5); */
 }
