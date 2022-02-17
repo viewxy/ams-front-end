@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from "react-router-dom";
 import http from "axios";
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
       q: keyword, // keyword from input
       limit: 20, // number of results
       has_image: 1 // it has an image
-    };  
+    };
 
     const getImages = await http("https://openaccess-api.clevelandart.org/api/artworks", {params})
       .then((response) => {
@@ -30,7 +31,6 @@ const Home = () => {
           }
           imageData.push(newImage);
         };
-        console.log(imageData)
         setImagesOnLoad(imageData);
       })
       .catch((e) => {
@@ -51,14 +51,24 @@ const Home = () => {
     <div>
       <input placeholder='Search' type="text" value={keyword} onChange={(e) => setKeyword(e.target.value)}/>
       <button onClick={() => loadCleveland(keyword)}>KATTINTS</button>
-      {imagesOnLoad.map((img, i) => (
+      {/* {imagesOnLoad.map((img, i) => (
         <div key={i} onClick={showArtworkDetails}>
           <img src={img.image} alt="Anyád" />
           <div className={isShown ? "miniArt" : "detailedArt"}>
             <p>{img.title}</p>
           </div>
         </div>
+      ))} */}
+      {imagesOnLoad.map((img, i) => (
+        <div key={i}>
+          <Link to={{
+            pathname: "/imageDetails",
+            state: "valami"
+         }}><img src={img.image} alt="Anyád" /></Link>
+          <p>{img.id}</p>
+        </div>
       ))}
+
     </div>
   )
 }
