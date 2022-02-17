@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-// import http from "axios";
 import { Routes, Route } from "react-router-dom";
 import SignUp from "./components/SignUp";
 import NavBar from "./components/NavBar";
@@ -9,7 +8,7 @@ import ImageDetails from "./routes/ImageDetails";
 
 
 function App() {
-  const [id, setId] = useState("");
+  const [details, setDetails] = useState({});
   /*
   sweet memories :)
 
@@ -26,8 +25,8 @@ function App() {
       <h1>Welcome to Art museum!</h1>
       <SignUp/>
       <Routes>
-        <Route path="/" element={<Home setId={setId}/>}/>
-        <Route path="/imageDetails" element={<ImageDetails id={id}/>}/>
+        <Route path="/" element={<Home setDetails={setDetails}/>}/>
+        <Route path="/imageDetails" element={<ImageDetails details={details}/>}/>
       </Routes>
     </div>
   );
