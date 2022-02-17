@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import http from "axios";
 
-const Home = () => {
+const Home = ({setId}) => {
   const [imagesOnLoad, setImagesOnLoad] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [isShown, setIsShown] = useState(true);
@@ -61,10 +61,7 @@ const Home = () => {
       ))} */}
       {imagesOnLoad.map((img, i) => (
         <div key={i}>
-          <Link to={{
-            pathname: "/imageDetails",
-            state: "valami"
-         }}><img src={img.image} alt="Anyád" /></Link>
+          <Link to="/imageDetails"><img src={img.image} onClick={() => setId(img.id)} alt="Anyád" /></Link>
           <p>{img.id}</p>
         </div>
       ))}

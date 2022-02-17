@@ -1,18 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import http from "axios";
 
-const ImageDetails = () => {
+const ImageDetails = ({id}) => {
   const [imgSource, setImgSource] = useState("");
 
   // itt probalom athozni az image id-t
-  const location = useLocation();
-  console.log(location);
+  console.log(id);
 
   const load = async() => {
     // itt majd az image id-t kene betenni a link vegere
-    const response = await http.get("https://openaccess-api.clevelandart.org/api/artworks/1953.424?indent=1");
+    const response = await http.get(`https://openaccess-api.clevelandart.org/api/artworks/${id}?indent=1`);
     // console.log(response.data.data);
     setImgSource(response.data.data.images.web.url);
   };

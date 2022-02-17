@@ -9,6 +9,7 @@ import ImageDetails from "./routes/ImageDetails";
 
 
 function App() {
+  const [id, setId] = useState("");
   /*
   sweet memories :)
 
@@ -25,8 +26,8 @@ function App() {
       <h1>Welcome to Art museum!</h1>
       <SignUp/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/imageDetails" element={<ImageDetails/>}/>
+        <Route path="/" element={<Home setId={setId}/>}/>
+        <Route path="/imageDetails" element={<ImageDetails id={id}/>}/>
       </Routes>
     </div>
   );
