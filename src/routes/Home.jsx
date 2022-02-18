@@ -7,17 +7,25 @@ const Home = ({setDetails}) => {
   const [keyword, setKeyword] = useState("");
   // const [isShown, setIsShown] = useState(true);
 
+
+  const [page, setPage] = useState(0);
+  
+  const [isFetching, setIsFetching] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
   // Cleveland API
   const loadCleveland = async(keyword) => {
     let artworkData = [];
     const params = {
       q: keyword, // keyword from input
       limit: 20, // number of results
-      has_image: 1 // it has an image
+      has_image: 1, // it has an image
+      page: page
     };
 
     const getImages = await http("https://openaccess-api.clevelandart.org/api/artworks", {params})
       .then((response) => {
+        console.log(response.data.data)
         for (const artwork of response.data.data) {
           let creator = artwork.creators.length > 0 ? artwork.creators[0].description : "Unknown";
           const newArtwork = {
@@ -31,15 +39,41 @@ const Home = ({setDetails}) => {
             technique: artwork.technique,
           }
           artworkData.push(newArtwork);
+
+          setImagesOnLoad((prevImages) => {
+            return [...new Set([...prevImages, ...artworkData.map((b) => b.title)])];
+          });
+          setPage((prevPageNumber) => prevPageNumber + 1);
+          setHasMore(response.data.data > 0);
+          setIsFetching(false);
+
           // console.log(newArtwork)
         };
         setImagesOnLoad(artworkData);
+        
       })
+      // .then((response) => {
+        // setImagesOnLoad(response.data.data);
+      // })
+      
       .catch((e) => {
         console.log("ERROR getting artwork data");
         console.log(e);
       });
-  };
+    };
+
+  function loadMoreItems() {
+    setIsFetching(true);
+
+    //mocking an API call
+    setTimeout(() => {
+      setImagesOnLoad((prevState) => [
+        ...prevState,
+        ...Array.from(Array(20).keys(), (n) => n + prevState.length + 1),
+      ]);
+      setIsFetching(false);
+    }, 2000);
+  }
 
   // const showArtworkDetails = () => {
   //   setIsShown((isShown) => !isShown);
@@ -73,6 +107,8 @@ const Home = ({setDetails}) => {
         </div>
       ))}
       </div>
+      {isFetching && <p>Fetching items...</p>}
+      {!isFetching && hasMore && <button onClick={loadMoreItems}>Load more</button>}
     </div>
   )
 }
