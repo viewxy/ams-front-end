@@ -31,11 +31,11 @@ const Home = ({ setDetails }) => {
       { params }
     )
       .then((response) => {
-        // if (response.data.data.length === 0) {
-        //   setCounter(counter - 1);
-        //   setSkipCount(counter * 20);
-        //   return loadCleveland();
-        // }
+        if (response.data.data.length === 0) {
+          setCounter(counter - 1);
+          setSkipCount(counter * 20);
+          return loadCleveland();
+        }
         console.log(response.data.data);
         for (const artwork of response.data.data) {
           let creator =
@@ -105,12 +105,10 @@ const Home = ({ setDetails }) => {
     localStorage.setItem("search", keyword);
   };
 
-  let up = 0;
   const pageCountUp = () => {
-    up++;
-    setCounter(up);
+    setCounter(counter + 1);
     setSkipCount(counter * 20);
-    loadCleveland();
+    // loadCleveland();
     console.log(skipCount);
   };
 
@@ -120,15 +118,15 @@ const Home = ({ setDetails }) => {
     }
     setCounter(counter - 1);
     setSkipCount(counter * 20);
-    loadCleveland();
+    // loadCleveland();
     console.log(skipCount);
   };
 
   useEffect(() => {
-    pageCountUp();
-    pageCountDown();
+    // pageCountUp();
+    // pageCountDown();
     loadCleveland();
-  }, []);
+  }, [skipCount]);
 
   return (
     <div>
