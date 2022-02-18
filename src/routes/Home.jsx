@@ -5,11 +5,11 @@ import http from "axios";
 const Home = ({setDetails}) => {
   const [imagesOnLoad, setImagesOnLoad] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [isShown, setIsShown] = useState(true);
+  // const [isShown, setIsShown] = useState(true);
 
   // Cleveland API
   const loadCleveland = async(keyword) => {
-    let imageData = [];
+    let artworkData = [];
     const params = {
       q: keyword, // keyword from input
       limit: 20, // number of results
@@ -20,7 +20,7 @@ const Home = ({setDetails}) => {
       .then((response) => {
         for (const artwork of response.data.data) {
           let creator = artwork.creators.length > 0 ? artwork.creators[0].description : "Unknown";
-          const newImage = {
+          const newArtwork = {
             image: artwork.images.web.url,
             id: artwork.id,
             title: artwork.title,
@@ -30,10 +30,10 @@ const Home = ({setDetails}) => {
             funFact: artwork.fun_fact,
             technique: artwork.technique,
           }
-          imageData.push(newImage);
-          // console.log(newImage)
+          artworkData.push(newArtwork);
+          // console.log(newArtwork)
         };
-        setImagesOnLoad(imageData);
+        setImagesOnLoad(artworkData);
       })
       .catch((e) => {
         console.log("ERROR getting artwork data");
@@ -41,12 +41,12 @@ const Home = ({setDetails}) => {
       });
   };
 
-  const showArtworkDetails = () => {
-    setIsShown((isShown) => !isShown);
-  };
+  // const showArtworkDetails = () => {
+  //   setIsShown((isShown) => !isShown);
+  // };
 
-  const showDetails = (img) => {
-    setDetails(img)
+  const storeDetails = (img) => {
+    setDetails(img) // local storage eseten ez mar lehet nem is kell, de talan jo lesz meg ez a http.post-hoz
     localStorage.setItem('img', img.image)
     localStorage.setItem('creator', img.creator)
     localStorage.setItem('id', img.id)
@@ -54,7 +54,7 @@ const Home = ({setDetails}) => {
     localStorage.setItem('creation_date', img.date)
     localStorage.setItem('technique', img.technique)
     localStorage.setItem('funFact', img.funFact)
-    localStorage.setItem('search', img.search)
+    localStorage.setItem('search', keyword)
   }
 
   useEffect(() => {
@@ -68,10 +68,10 @@ const Home = ({setDetails}) => {
       <div className='main'>
       {imagesOnLoad.map((img, i) => (
         <div key={i}>
-          <Link to="/imageDetails"><img src={img.image} onClick={() => showDetails(img)} alt="Anyád" /></Link>
+          <Link to="/imageDetails"><img src={img.image} onClick={() => storeDetails(img)} alt="Anyád" /></Link>
           <p>{img.title}</p>
         </div>
-      ))} 
+      ))}
       </div>
     </div>
   )

@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import http from "axios";
 
 const ImageDetails = ({details}) => {
-  const [imgSource, setImgSource] = useState("");
+  // jelenleg a load, useEffect helyett full a local storage adatokat hasznaljuk
+  // const [imgSource, setImgSource] = useState("");
 
-  // itt jon at a kattintott kep osszes adata
+  // itt jon at a kattintott artwork osszes adata
   // console.log(details);
 
-  const load = async() => {
-    const response = await http.get(`https://openaccess-api.clevelandart.org/api/artworks/${details.id}?indent=1`);
-    // console.log(response.data.data);
-    setImgSource(response.data.data.images.web.url);
-    
-  };
+  // const load = async() => {
+  //   const response = await http.get(`https://openaccess-api.clevelandart.org/api/artworks/${details.id}?indent=1`);
+
+  //   console.log(response.data.data); // for more artwork info
+  //   setImgSource(response.data.data.images.web.url);
+  // };
 
   const storedDetails = {
     img: localStorage.getItem('img'),
@@ -26,15 +27,14 @@ const ImageDetails = ({details}) => {
     search: localStorage.getItem('search')
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  // useEffect(() => {
+  //   load();
+  // }, []);
 
   return (
     <div className='full'>
       <h1>Image details</h1>
       <p>(Click on the image to return)</p>
-      {/* ez most kattintasra visszamegy a fooldalra */}
       <div className='detailed'>
         <Link to="/"><img src={storedDetails.img} alt="Anyád"/></Link>
         <div className='pDet'>
@@ -42,7 +42,7 @@ const ImageDetails = ({details}) => {
           <p><b>Title:</b> {storedDetails.title}</p>
           <p><b>Date of creation:</b> {storedDetails.date}</p>
           <p><b>Technique:</b> {storedDetails.technique}</p>
-          {storedDetails.funFact !== "null" ? <p><b>Fun fact:</b> {storedDetails.funFact}</p> : <p>No fun fact :'</p>}
+          {storedDetails.funFact !== "null" ? <p><b>Fun fact:</b> {storedDetails.funFact}</p> : <p>No fun fact :'(</p>}
         </div>
       </div>
     </div>
@@ -50,3 +50,22 @@ const ImageDetails = ({details}) => {
 }
 
 export default ImageDetails
+
+/*
+const signup = async() => {
+    try {
+      await http.post("http://localhost:3001/api/signup", {
+      username: nameValue,
+      password: passwordValue
+      });
+      alert ("success");
+      setNameValue("");
+      setPasswordValue("");
+      setDivToShow("login");
+    } catch (err) {
+      if (!err.response) alert("No No");
+      if (err.response.status === 409) alert("User already exists");
+      if (err.response.status === 400) alert("Missing input");
+    };
+  };
+*/
