@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import http from "axios";
 
-const Home = ({ setDetails }) => {
+const Home = () => {
   const [imagesOnLoad, setImagesOnLoad] = useState([]);
   const [keyword, setKeyword] = useState("");
 
@@ -17,7 +17,7 @@ const Home = ({ setDetails }) => {
     setCurrentPage((page) => page + 20)
     // console.log(currentPage);
   }
-  
+
   function goToPreviousPage() {
     if (currentPage > 1) {
       setCurrentPage((page) => page - 20)

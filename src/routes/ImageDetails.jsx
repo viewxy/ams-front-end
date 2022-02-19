@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react'
 import { Link, useParams } from "react-router-dom";
 import http from "axios";
 
-const ImageDetails = ({details}) => {
+const ImageDetails = () => {
   let {id} = useParams(); // coming from the URL
 
   const [notes, setNotes] = useState("");
+  const [tags, setTags] = useState("");
 
   const [creator, setCreator] = useState("");
   const [title, setTitle] = useState("");
@@ -27,17 +28,20 @@ const ImageDetails = ({details}) => {
   };
 
   const saveToFavorites = async() => {
+    const tagsArray = tags.split(",");
     try {
       await http.post("http://localhost:3001/api/favorites", {
         id: id,
         title: title,
-        url: imageUrl
+        url: imageUrl,
+        note: notes,
+        tags: tagsArray
       });
       alert ("success");
       setNotes("");
+      setTags("");
     } catch (err) {
       if (!err.response) alert("No No");
-      if (err.response.status === 400) alert("Missing input");
     };
   };
 
@@ -60,6 +64,7 @@ const ImageDetails = ({details}) => {
           {funFact !== "null" ? <p><b>Fun fact:</b> {funFact}</p> : <p>No fun fact :'(</p>}
         </div>
         <input type="text" placeholder="notes" value={notes} onChange={(e) => setNotes(e.target.value)}/>
+        <input type="text" placeholder="tags" value={tags} onChange={(e) => setTags(e.target.value)}/>
       </div>
     </div>
   )

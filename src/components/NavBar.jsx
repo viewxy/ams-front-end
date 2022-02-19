@@ -7,6 +7,7 @@ const NavBar = () => {
       <nav>
         <Link to="/">HOME</Link> |{" "}
         <Link to="/imageDetails">Image Details (not working)</Link> |{" "}
+        <Link to="/favorites">Favorites</Link>
       </nav>
     </div>
   );
