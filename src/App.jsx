@@ -26,7 +26,7 @@ function App() {
       <SignUp/>
       <Routes>
         <Route path="/" element={<Home setDetails={setDetails}/>}/>
-        <Route path="/imageDetails" element={<ImageDetails details={details}/>}/>
+        <Route path="/imageDetails/:id" element={<ImageDetails details={details}/>}/>
       </Routes>
     </div>
   );

@@ -93,17 +93,17 @@ const Home = ({ setDetails }) => {
   //   setIsShown((isShown) => !isShown);
   // };
 
-  const storeDetails = (img) => {
-    setDetails(img); // local storage eseten ez mar lehet nem is kell, de talan jo lesz meg ez a http.post-hoz
-    localStorage.setItem("img", img.image);
-    localStorage.setItem("creator", img.creator);
-    localStorage.setItem("id", img.id);
-    localStorage.setItem("title", img.title);
-    localStorage.setItem("creation_date", img.date);
-    localStorage.setItem("technique", img.technique);
-    localStorage.setItem("funFact", img.funFact);
-    localStorage.setItem("search", keyword);
-  };
+  // const storeDetails = (img) => {
+  //   setDetails(img); // local storage eseten ez mar lehet nem is kell, de talan jo lesz meg ez a http.post-hoz
+  //   localStorage.setItem("img", img.image);
+  //   localStorage.setItem("creator", img.creator);
+  //   localStorage.setItem("id", img.id);
+  //   localStorage.setItem("title", img.title);
+  //   localStorage.setItem("creation_date", img.date);
+  //   localStorage.setItem("technique", img.technique);
+  //   localStorage.setItem("funFact", img.funFact);
+  //   localStorage.setItem("search", keyword);
+  // };
 
   const pageCountUp = () => {
     setCounter(counter + 1);
@@ -140,10 +140,10 @@ const Home = ({ setDetails }) => {
       <div className="main">
         {imagesOnLoad.map((img, i) => (
           <div key={i}>
-            <Link to="/imageDetails">
+            <Link to={`/imageDetails/${img.id}`}>
               <img
                 src={img.image}
-                onClick={() => storeDetails(img)}
+                /* onClick={() => storeDetails(img)} */
                 alt="Anyád"
               />
             </Link>
