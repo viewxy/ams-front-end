@@ -8,8 +8,6 @@ const Home = ({ setDetails }) => {
   const [skipCount, setSkipCount] = useState(0);
   const [counter, setCounter] = useState(0);
 
-  // const [isShown, setIsShown] = useState(true);
-
   // const [page, setPage] = useState(0);
 
   const [isFetching, setIsFetching] = useState(false);
@@ -17,7 +15,7 @@ const Home = ({ setDetails }) => {
 
   // Cleveland API
   const loadCleveland = async (keyword) => {
-    let artworkData = [];
+    let artworksData = [];
     const params = {
       q: keyword, // keyword from input
       limit: 20, // number of results
@@ -35,32 +33,21 @@ const Home = ({ setDetails }) => {
           setCounter(counter - 1);
           setSkipCount(counter * 20);
           return loadCleveland();
-        }
+        };
         console.log(response.data.data);
         for (const artwork of response.data.data) {
-          let creator =
-            artwork.creators.length > 0
-              ? artwork.creators[0].description
-              : "Unknown";
           const newArtwork = {
             image: artwork.images.web.url,
             id: artwork.id,
-            title: artwork.title,
-            creator: creator,
-            date: artwork.creation_date,
-            details: artwork.tombstone,
-            funFact: artwork.fun_fact,
-            technique: artwork.technique,
+            title: artwork.title
           };
-          artworkData.push(newArtwork);
-
-          // console.log(newArtwork)
+          artworksData.push(newArtwork);
         }
       })
       // .then((response) => {
       // setImagesOnLoad((prevImages) => {
       //   return [
-      //     ...new Set([...prevImages, ...artworkData.map((b) => b.title)]),
+      //     ...new Set([...prevImages, ...artworksData.map((b) => b.title)]),
       //   ];
       // });
       // setPage((prevPageNumber) => prevPageNumber + 1);
@@ -73,7 +60,7 @@ const Home = ({ setDetails }) => {
         console.log("ERROR getting artwork data");
         console.log(e);
       });
-    setImagesOnLoad(artworkData);
+    setImagesOnLoad(artworksData);
   };
 
   // function loadMoreItems() {
@@ -88,22 +75,6 @@ const Home = ({ setDetails }) => {
   //     setIsFetching(false);
   //   }, 2000);
   // }
-
-  // const showArtworkDetails = () => {
-  //   setIsShown((isShown) => !isShown);
-  // };
-
-  // const storeDetails = (img) => {
-  //   setDetails(img); // local storage eseten ez mar lehet nem is kell, de talan jo lesz meg ez a http.post-hoz
-  //   localStorage.setItem("img", img.image);
-  //   localStorage.setItem("creator", img.creator);
-  //   localStorage.setItem("id", img.id);
-  //   localStorage.setItem("title", img.title);
-  //   localStorage.setItem("creation_date", img.date);
-  //   localStorage.setItem("technique", img.technique);
-  //   localStorage.setItem("funFact", img.funFact);
-  //   localStorage.setItem("search", keyword);
-  // };
 
   const pageCountUp = () => {
     setCounter(counter + 1);
@@ -139,13 +110,9 @@ const Home = ({ setDetails }) => {
       <button onClick={() => loadCleveland(keyword)}>KATTINTS</button>
       <div className="main">
         {imagesOnLoad.map((img, i) => (
-          <div key={i}>
+          <div key={img.id}>
             <Link to={`/imageDetails/${img.id}`}>
-              <img
-                src={img.image}
-                /* onClick={() => storeDetails(img)} */
-                alt="Anyád"
-              />
+              <img src={img.image} alt="Anyád"/>
             </Link>
             <p>{img.title}</p>
           </div>
@@ -160,3 +127,18 @@ const Home = ({ setDetails }) => {
 };
 
 export default Home;
+
+/*
+NOT IN USE, replaced by /:id in url
+  // const storeDetails = (img) => {
+  //   setDetails(img); // local storage eseten ez mar lehet nem is kell, de talan jo lesz meg ez a http.post-hoz
+  //   localStorage.setItem("img", img.image);
+  //   localStorage.setItem("creator", img.creator);
+  //   localStorage.setItem("id", img.id);
+  //   localStorage.setItem("title", img.title);
+  //   localStorage.setItem("creation_date", img.date);
+  //   localStorage.setItem("technique", img.technique);
+  //   localStorage.setItem("funFact", img.funFact);
+  //   localStorage.setItem("search", keyword);
+  // };
+*/
