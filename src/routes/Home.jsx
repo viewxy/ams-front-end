@@ -5,13 +5,32 @@ import http from "axios";
 const Home = ({ setDetails }) => {
   const [imagesOnLoad, setImagesOnLoad] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [skipCount, setSkipCount] = useState(0);
-  const [counter, setCounter] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   // const [page, setPage] = useState(0);
 
   const [isFetching, setIsFetching] = useState(false);
   // const [hasMore, setHasMore] = useState(true);
+
+  function goToNextPage() {
+    setCurrentPage((page) => page + 20)
+    // console.log(currentPage);
+  }
+  
+  function goToPreviousPage() {
+    if (currentPage > 1) {
+      setCurrentPage((page) => page - 20)
+    }    
+    // setCurrentPage((page) => page - 20)
+    // console.log(currentPage);
+  }
+
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent)
+    setCurrentPage(pageNumber)
+  }
+
 
   // Cleveland API
   const loadCleveland = async (keyword) => {
@@ -20,7 +39,7 @@ const Home = ({ setDetails }) => {
       q: keyword, // keyword from input
       limit: 20, // number of results
       has_image: 1, // it has an image
-      skip: skipCount,
+      skip: currentPage,
       // page: page,
     };
 
@@ -29,11 +48,6 @@ const Home = ({ setDetails }) => {
       { params }
     )
       .then((response) => {
-        if (response.data.data.length === 0) {
-          setCounter(counter - 1);
-          setSkipCount(counter * 20);
-          return loadCleveland();
-        };
         console.log(response.data.data);
         for (const artwork of response.data.data) {
           const newArtwork = {
@@ -60,7 +74,11 @@ const Home = ({ setDetails }) => {
         console.log("ERROR getting artwork data");
         console.log(e);
       });
-    setImagesOnLoad(artworksData);
+      setImagesOnLoad(artworksData);
+      if (artworksData.length === 0) {
+        setCurrentPage(currentPage - 20)
+        // return loadCleveland();
+      };
   };
 
   // function loadMoreItems() {
@@ -76,28 +94,27 @@ const Home = ({ setDetails }) => {
   //   }, 2000);
   // }
 
-  const pageCountUp = () => {
-    setCounter(counter + 1);
-    setSkipCount(counter * 20);
-    // loadCleveland();
-    console.log(skipCount);
-  };
+  // const pageCountUp = () => {
+  //   setCounter(counter + 1);
+  //   setSkipCount(counter * 20);
+  //   // loadCleveland();
+  //   console.log(skipCount);
+  // };
 
-  const pageCountDown = () => {
-    if (counter === 0) {
-      return setSkipCount(0);
-    }
-    setCounter(counter - 1);
-    setSkipCount(counter * 20);
-    // loadCleveland();
-    console.log(skipCount);
-  };
+  // const pageCountDown = () => {
+  //   if (counter === 0) {
+  //     return setSkipCount(0);
+  //   }
+  //   setCounter(counter - 1);
+  //   setSkipCount(counter * 20);
+  //   // loadCleveland();
+  //   console.log(skipCount);
+  // };
 
   useEffect(() => {
-    // pageCountUp();
-    // pageCountDown();
+    console.log(currentPage);
     loadCleveland();
-  }, [skipCount]);
+  }, [currentPage]);
 
   return (
     <div>
@@ -118,8 +135,8 @@ const Home = ({ setDetails }) => {
           </div>
         ))}
       </div>
-      <button onClick={() => pageCountDown()}>&#9754;</button>
-      <button onClick={() => pageCountUp()}>&#9755;</button>
+      <button onClick={() => goToPreviousPage()} onChange={(event) => changePage(event)}>Down</button>
+      <button onClick={() => goToNextPage()} onChange={(event) => changePage(event)}>Up</button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
     </div>
