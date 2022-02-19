@@ -21,7 +21,7 @@ const Home = ({ setDetails }) => {
   function goToPreviousPage() {
     if (currentPage > 1) {
       setCurrentPage((page) => page - 20)
-    }    
+    }
     // setCurrentPage((page) => page - 20)
     // console.log(currentPage);
   }
@@ -135,7 +135,7 @@ const Home = ({ setDetails }) => {
           </div>
         ))}
       </div>
-      <button onClick={() => goToPreviousPage()} onChange={(event) => changePage(event)}>Down</button>
+      <button disabled={currentPage === 0 ? true : false} onClick={() => goToPreviousPage()} onChange={(event) => changePage(event)}>Down</button>
       <button onClick={() => goToNextPage()} onChange={(event) => changePage(event)}>Up</button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
