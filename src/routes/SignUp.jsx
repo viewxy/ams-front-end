@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import http from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [nameValue, setNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
+  let navigate = useNavigate();
+
   const signUp = async () => {
     try {
-      await http.post("http://localhost:4000/api/signup", {
+      await http.post("http://localhost:3001/api/signup", {
         name: nameValue,
         password: passwordValue,
       });
@@ -26,6 +29,7 @@ const SignUp = () => {
         alert("Missing credentials");
       }
     }
+    navigate("/login")
   };
 
   return (

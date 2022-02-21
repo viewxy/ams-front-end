@@ -61,7 +61,7 @@ const ImageDetails = () => {
           <p><b>Title:</b> {title}</p>
           <p><b>Date of creation:</b> {date}</p>
           <p><b>Technique:</b> {technique}</p>
-          {funFact !== "null" ? <p><b>Fun fact:</b> {funFact}</p> : <p>No fun fact :'(</p>}
+          {funFact !== "null" ? <p><b>Fun fact:</b> {funFact}</p> : <p>No fun fact :'((</p>}
         </div>
         <input type="text" placeholder="notes" value={notes} onChange={(e) => setNotes(e.target.value)}/>
         <input type="text" placeholder="tags" value={tags} onChange={(e) => setTags(e.target.value)}/>
