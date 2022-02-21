@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import http from "axios";
 
-const ImageDetails = () => {
+const ImageDetailsHome = () => {
   let { id } = useParams(); // coming from the URL
   let { q } = useParams();
 
@@ -60,7 +60,7 @@ const ImageDetails = () => {
       <h1>Image details</h1>
       <p>(Click on the image to return)</p>
       <div className="detailed">
-        <Link to={`/search/${q}`}>
+        <Link to={`/`}>
           <img src={imageUrl} alt="Wait for it..." />
         </Link>
         <button onClick={saveToFavorites}>Save To Favorites</button>
@@ -102,7 +102,7 @@ const ImageDetails = () => {
   );
 };
 
-export default ImageDetails;
+export default ImageDetailsHome;
 
 /*
 NOT IN USE

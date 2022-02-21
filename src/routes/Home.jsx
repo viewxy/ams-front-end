@@ -14,23 +14,22 @@ const Home = () => {
   // const [hasMore, setHasMore] = useState(true);
 
   function goToNextPage() {
-    setCurrentPage((page) => page + 20)
+    setCurrentPage((page) => page + 20);
     // console.log(currentPage);
   }
 
   function goToPreviousPage() {
     if (currentPage > 1) {
-      setCurrentPage((page) => page - 20)
+      setCurrentPage((page) => page - 20);
     }
     // setCurrentPage((page) => page - 20)
     // console.log(currentPage);
   }
 
   function changePage(event) {
-    const pageNumber = Number(event.target.textContent)
-    setCurrentPage(pageNumber)
+    const pageNumber = Number(event.target.textContent);
+    setCurrentPage(pageNumber);
   }
-
 
   // Cleveland API
   const loadCleveland = async (keyword) => {
@@ -53,7 +52,7 @@ const Home = () => {
           const newArtwork = {
             image: artwork.images.web.url,
             id: artwork.id,
-            title: artwork.title
+            title: artwork.title,
           };
           artworksData.push(newArtwork);
         }
@@ -74,11 +73,11 @@ const Home = () => {
         console.log("ERROR getting artwork data");
         console.log(e);
       });
-      setImagesOnLoad(artworksData);
-      if (artworksData.length === 0) {
-        setCurrentPage(currentPage - 20)
-        // return loadCleveland();
-      };
+    setImagesOnLoad(artworksData);
+    if (artworksData.length === 0) {
+      setCurrentPage(currentPage - 20);
+      // return loadCleveland();
+    }
   };
 
   // function loadMoreItems() {
@@ -124,19 +123,33 @@ const Home = () => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <button onClick={() => loadCleveland(keyword)}>KATTINTS</button>
+      <Link to={`/search/${keyword}`}>
+        {" "}
+        <button onClick={() => loadCleveland(keyword)}>KATTINTS</button>
+      </Link>
       <div className="main">
         {imagesOnLoad.map((img, i) => (
           <div key={img.id}>
             <Link to={`/imageDetails/${img.id}`}>
-              <img src={img.image} alt="Anyád"/>
+              <img src={img.image} alt="Anyád" />
             </Link>
             <p>{img.title}</p>
           </div>
         ))}
       </div>
-      <button disabled={currentPage === 0 ? true : false} onClick={() => goToPreviousPage()} onChange={(event) => changePage(event)}>Down</button>
-      <button onClick={() => goToNextPage()} onChange={(event) => changePage(event)}>Up</button>
+      <button
+        disabled={currentPage === 0 ? true : false}
+        onClick={() => goToPreviousPage()}
+        onChange={(event) => changePage(event)}
+      >
+        Down
+      </button>
+      <button
+        onClick={() => goToNextPage()}
+        onChange={(event) => changePage(event)}
+      >
+        Up
+      </button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
     </div>
