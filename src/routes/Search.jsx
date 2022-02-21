@@ -8,6 +8,7 @@ function Search() {
   const [imagesOnLoad, setImagesOnLoad] = useState([]);
   const [keyword, setKeyword] = useState(q);
   const [keywordAlpha, setKeywordAlpha] = useState("");
+  const [key, setKey] = useState("");
   const [counter, setCounter] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -80,13 +81,12 @@ function Search() {
       <input
         placeholder="Search"
         type="text"
-        value={keyword}
+        defaultValue={keyword}
         onChange={(e) => setKeywordAlpha(e.target.value)}
       />
       <button
         onClick={() => {
-          setKeyword(keywordAlpha);
-          setKeyword("");
+          setKeyword(keywordAlpha)
         }}
       >
         KATTINTS
