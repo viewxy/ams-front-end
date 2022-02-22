@@ -143,7 +143,7 @@ const Home = () => {
             <Link to={`/imageDetails/${img.id}`}>
               <img src={img.image} alt="Anyád" />
             </Link>
-            <p>{img.title}</p>
+            <p className="description">{img.title}</p>
           </div>
         ))}
        

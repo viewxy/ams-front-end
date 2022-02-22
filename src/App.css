@@ -74,11 +74,13 @@ body {
 .search-part {
   position: relative;
   z-index: 10;
+  margin-top: 10px;
 }
 
 .search-part button {
   width: 2rem;
   height: 1.5rem;
+  margin-left: 5px;
 }
 
 .search-part input {
@@ -224,6 +226,7 @@ button:hover {
   border-radius: 10px;
 
   background-color: rgba(224, 221, 170, 0.2);
+  gap: 15px;
 }
 
 .detailed img {
@@ -235,7 +238,12 @@ button:hover {
 }
 
 .main div img {
-  max-height: 50vh;
+  max-height: 40vh;
+}
+
+.main div p {
+  display: flex;
+  flex-direction: column;
 }
 
 div.detailed {

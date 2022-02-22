@@ -78,6 +78,7 @@ function Search() {
 
   return (
     <div>
+      <div className="search-part">
       <input
         placeholder="Search"
         type="text"
@@ -89,8 +90,9 @@ function Search() {
           setKeyword(keywordAlpha);
         }}
       >
-        KATTINTS
+        OK
       </button>
+      </div>
       <div className="main">
         {imagesOnLoad.map((img, i) => (
           <div key={img.id}>
@@ -103,9 +105,12 @@ function Search() {
                 <img src={img.image} alt="Anyád" />
               </Link>
             )}
-            <p>{img.title}</p>
+            <p className="description">{img.title}</p>
           </div>
         ))}
+         
+      </div>
+      <div className="image" >
       </div>
       <div className="button-bottom">
       <button
