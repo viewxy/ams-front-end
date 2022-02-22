@@ -13,6 +13,11 @@ const Home = () => {
   const [isFetching, setIsFetching] = useState(false);
   // const [hasMore, setHasMore] = useState(true);
 
+  function goToFirstPage() {
+    setCurrentPage(0);
+    // console.log(currentPage);
+  }
+
   function goToNextPage() {
     setCurrentPage((page) => page + 20);
     // console.log(currentPage);
@@ -117,6 +122,7 @@ const Home = () => {
 
   return (
     <div>
+      <div className="search-part">
       <input
         placeholder="Search"
         type="text"
@@ -125,18 +131,24 @@ const Home = () => {
       />
       <Link to={`/search/${keyword}`}>
         {" "}
-        <button onClick={() => loadCleveland(keyword)}>KATTINTS</button>
+        <button onClick={() => loadCleveland(keyword)}>OK</button>
       </Link>
+      </div>
+      <div className="image" >
+      </div>
       <div className="main">
+      
         {imagesOnLoad.map((img, i) => (
           <div key={img.id}>
             <Link to={`/imageDetails/${img.id}`}>
               <img src={img.image} alt="Anyád" />
             </Link>
-            <p>{img.title}</p>
+            <p className="description">{img.title}</p>
           </div>
         ))}
+       
       </div>
+      <div className="button-bottom">
       <button
         disabled={currentPage === 0 ? true : false}
         onClick={() => goToPreviousPage()}
@@ -150,8 +162,15 @@ const Home = () => {
       >
         Up
       </button>
+      <button
+        onClick={() => goToFirstPage()}
+        onChange={(event) => changePage(event)}
+      >
+        First page
+      </button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
+      </div>
     </div>
   );
 };

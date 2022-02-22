@@ -78,6 +78,7 @@ function Search() {
 
   return (
     <div>
+      <div className="search-part">
       <input
         placeholder="Search"
         type="text"
@@ -86,11 +87,12 @@ function Search() {
       />
       <button
         onClick={() => {
-          setKeyword(keywordAlpha)
+          setKeyword(keywordAlpha);
         }}
       >
-        KATTINTS
+        OK
       </button>
+      </div>
       <div className="main">
         {imagesOnLoad.map((img, i) => (
           <div key={img.id}>
@@ -103,10 +105,14 @@ function Search() {
                 <img src={img.image} alt="Anyád" />
               </Link>
             )}
-            <p>{img.title}</p>
+            <p className="description">{img.title}</p>
           </div>
         ))}
+         
       </div>
+      <div className="image" >
+      </div>
+      <div className="button-bottom">
       <button
         disabled={currentPage === 0 ? true : false}
         onClick={() => goToPreviousPage()}
@@ -122,6 +128,7 @@ function Search() {
       </button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
+    </div>
     </div>
   );
 }

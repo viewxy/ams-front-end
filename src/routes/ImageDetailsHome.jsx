@@ -57,13 +57,13 @@ const ImageDetailsHome = () => {
 
   return (
     <div className="full">
-      <h1>Image details</h1>
+      <h2>Image details</h2>
       <p>(Click on the image to return)</p>
       <div className="detailed">
         <Link to={`/`}>
           <img src={imageUrl} alt="Wait for it..." />
         </Link>
-        <button onClick={saveToFavorites}>Save To Favorites</button>
+        
         <div className="pDet">
           <p>
             <b>Creator:</b> {creator}
@@ -85,6 +85,7 @@ const ImageDetailsHome = () => {
             <p>No fun fact :'((</p>
           )}
         </div>
+        <div className="imgDet-button">
         <input
           type="text"
           placeholder="notes"
@@ -97,6 +98,8 @@ const ImageDetailsHome = () => {
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
+        <button onClick={saveToFavorites}>Save To Favorites</button>
+        </div>
       </div>
     </div>
   );

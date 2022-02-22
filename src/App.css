@@ -2,6 +2,138 @@
   filter: invert(1);
   background-color: rgb(0, 0, 0);
 } */
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,300;0,400;1,500&family=Fjalla+One&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  /* border: 0; */
+  /* outline: none; */
+  box-sizing: border-box;
+
+  /* background: transparent; */
+
+  /* font-family: inherit; */
+
+  text-decoration: none;
+}
+
+/* ol, ul, li {
+  list-style:none;
+  display:block;
+}
+
+table {
+  border-collapse:collapse;
+  border-spacing:0
+}
+
+a img {
+  border: none
+} */
+
+button,
+a {
+  cursor: pointer;
+  /* color: inherit; */
+}
+
+textarea {
+  resize: none;
+}
+
+/* end of css reset */
+
+body {
+  position: relative;
+  font-family: "Epilogue", sans-serif;
+  font-weight: 500;
+
+  /* background-color: #eeedde; */
+  background: rgb(238, 237, 222);
+  background: -moz-radial-gradient(
+    circle,
+    rgba(238, 237, 222, 1) 16%,
+    rgba(224, 221, 170, 1) 32%,
+    rgba(32, 50, 57, 1) 100%
+  );
+  background: -webkit-radial-gradient(
+    circle,
+    rgba(238, 237, 222, 1) 16%,
+    rgba(224, 221, 170, 1) 32%,
+    rgba(32, 50, 57, 1) 100%
+  );
+  background: radial-gradient(
+    circle,
+    rgba(238, 237, 222, 1) 16%,
+    rgba(224, 221, 170, 1) 32%,
+    rgba(32, 50, 57, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeedde",endColorstr="#203239",GradientType=1);
+}
+.search-part {
+  position: relative;
+  z-index: 10;
+  margin-top: 10px;
+}
+
+.search-part button {
+  width: 2rem;
+  height: 1.5rem;
+  margin-left: 5px;
+}
+
+.search-part input {
+  width: 10rem;
+  height: 1.5rem;
+  background-color: inherit;
+  padding-inline-start: 5px;
+}
+
+.button-bottom {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  z-index: 10;
+}
+
+.image {
+  height: 100vh;
+  width: 80vw;
+  position: fixed;
+  top: 0;
+  left: 50px;
+  background-image: url("./images/art.png");
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+nav a {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.15rem;
+
+  color: #203239;
+}
+
+.navbar {
+  position: relative;
+  padding-top: 10px;
+  z-index: 2;
+}
+
+h1 {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 400;
+  font-size: 42px;
+
+  margin-top: 50px;
+}
 
 .App {
   text-align: center;
@@ -26,11 +158,14 @@
 img {
   cursor: pointer;
   width: 20vw;
+  z-index: 2;
 }
 
 button {
   border-radius: 5px;
   filter: invert(1);
+  width: 6rem;
+  height: 2.5rem;
 }
 
 button:hover {
@@ -73,15 +208,25 @@ button:hover {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+  margin: 100px 20px 100px 20px;
+  gap: 10px;
 }
 
 .main div {
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
   height: 100%;
   justify-content: center;
   max-height: 60vh;
+  z-index: 2;
+  margin-top: 50px;
+
+  border: 3px solid rgba(224, 221, 170, 0.5);
+  border-radius: 10px;
+
+  background-color: rgba(224, 221, 170, 0.2);
+  gap: 15px;
 }
 
 .detailed img {
@@ -93,7 +238,12 @@ button:hover {
 }
 
 .main div img {
-  max-height: 50vh;
+  max-height: 40vh;
+}
+
+.main div p {
+  display: flex;
+  flex-direction: column;
 }
 
 div.detailed {
@@ -102,7 +252,7 @@ div.detailed {
   grid-template-rows: 1fr;
 
   width: 100vw;
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 div.detailed img {
@@ -118,9 +268,33 @@ div.detailed img {
   height: 60vh;
   display: grid;
   margin-right: 20px;
-  margin-top: 20px;
+  margin-top: 50px;
   grid-column: 2;
+  gap: 20px;
   /* align-self: center; */
 
   height: 20px;
+}
+
+.imgDet-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.imgDet-button input {
+  width: 20vw;
+  text-align: center;
+}
+.imgDet-button button {
+  width: 6rem;
+  height: 2.5rem;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 30px;
+  font-family: "Fjalla One", sans-serif;
 }
