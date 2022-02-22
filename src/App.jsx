@@ -25,8 +25,9 @@ function App() {
 
   return (
     <div className="App">
+      
       <NavBar />
-      <h1>Welcome to Art museum!</h1>
+      <h1>Welcome to SCHIELE Art Museum!</h1>
       {/* <SignUp/> */}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,6 +41,7 @@ function App() {
           element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
         />
       </Routes>
+     
     </div>
   );
 }

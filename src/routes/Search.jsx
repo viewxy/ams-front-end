@@ -86,7 +86,7 @@ function Search() {
       />
       <button
         onClick={() => {
-          setKeyword(keywordAlpha)
+          setKeyword(keywordAlpha);
         }}
       >
         KATTINTS
@@ -107,6 +107,7 @@ function Search() {
           </div>
         ))}
       </div>
+      <div className="button-bottom">
       <button
         disabled={currentPage === 0 ? true : false}
         onClick={() => goToPreviousPage()}
@@ -122,6 +123,7 @@ function Search() {
       </button>
       {/* {isFetching && <p>Fetching items...</p>}
       {!isFetching && <button onClick={loadMoreItems}>Load more</button>} */}
+    </div>
     </div>
   );
 }
